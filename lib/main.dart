@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:remedio_da_hora/src/screens/home/home_screen.dart';
+import 'package:get_it/get_it.dart';
+import 'package:remedio_da_hora/app/dahora_app.dart';
 
+import 'src/shared/library/navigator_controller.dart';
+import 'src/shared/library/router_controller.dart';
 
 void main() {
-  runApp(const HomeScreen());
+
+  runApp(DahoraApp());
 }
