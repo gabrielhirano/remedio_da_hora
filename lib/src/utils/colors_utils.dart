@@ -5,6 +5,4 @@ class ColorsUtils extends Color{
 
   static Color get primaryBlue => const Color.fromARGB(1, 153, 206, 239);
 
-
-
 } 

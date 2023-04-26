@@ -14,7 +14,7 @@ class _DahoraAppState extends State<DahoraApp> {
 
   @override
   void initState() {
-    GetIt.I<NavigatorController>().setNavigatorKey(_navigatorKey);
+    singNavigator.setNavigatorKey(_navigatorKey);
 
     super.initState();
   }
@@ -22,10 +22,9 @@ class _DahoraAppState extends State<DahoraApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: const Locale("pt", "BR"),
-      navigatorKey: _navigatorKey,
-      initialRoute: '/',
-      routes: singRoutes.routes
-    );
+        locale: const Locale("pt", "BR"),
+        navigatorKey: _navigatorKey,
+        initialRoute: '/',
+        routes: singRoutes.routes);
   }
 }

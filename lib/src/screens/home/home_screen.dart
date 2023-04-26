@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/screens/home/home_routes.dart';
 import 'package:remedio_da_hora/src/screens/home/notificacao/notificacao_screen.dart';
 import 'package:remedio_da_hora/src/shared/library/navigator_controller.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
+import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     // hiranoNavigator.navigate(NotificacaoScreen());
                     singNavigator.pushNamed('/notificacao');
+                    
                     // setState(() {
                     //   controller = !controller;
                     // });
