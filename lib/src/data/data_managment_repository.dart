@@ -1,0 +1,52 @@
+import 'dart:async';
+import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
+
+class DataManagmentRepository<T> {
+  final BaseRepository repository;
+  final T Function(Map<String, dynamic>) fromJson;
+
+  DataManagmentRepository({required this.repository, required this.fromJson});
+
+  Future<T?> get({required String name}) async {
+    return repository
+        .get(name)
+        .then((object) => fromJson(object))
+        .catchError((error) => error);
+  }
+
+  Future<List<T>?> getAll() async {
+    return repository
+        .getAll()
+        .then((listObjects) => _listObjects(listObjects))
+        .catchError((error) => error);
+  }
+
+  Future<dynamic> post({required String name, required T object}) async {
+    return repository
+        .post(name, object)
+        .then((sucess) => sucess)
+        .catchError((error) => error);
+  }
+
+  Future<dynamic> put({required String name, required T object}) async {
+    return repository
+        .put(name, object)
+        .then((sucess) => sucess)
+        .catchError((error) => error);
+  }
+
+  Future<dynamic> delete({required String name, required T object}) async {
+    return repository
+        .delete(name)
+        .then((sucess) => sucess)
+        .catchError((error) => error);
+  }
+
+  List<T> _listObjects(listObjects) {
+    List<T> list = [];
+
+    for (var object in listObjects) list.add(fromJson(object));
+
+    return list;
+  }
+}
