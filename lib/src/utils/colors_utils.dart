@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+mixin ColorsUtils {
+  Color get primaryBlue => getColorByHex('#C3DCEC');
+  Color get primaryBlueLight => getColorByHex('#AAD5F0');
 
-class ColorsUtils extends Color{
-  ColorsUtils(super.value);
+  Color get secondaryBlue => getColorByHex('#99CEEF');
 
-  static Color get primaryBlue => const Color.fromARGB(1, 153, 206, 239);
+  Color get primaryBlueDark => getColorByHex('#063A58');
+  Color get primaryBlueDarkLight => getColorByHex('#406377');
 
-} 
+  Color get secondaryBlueDark => getColorByHex('#A6BECE');
+
+  Color getColorByHex(String hex) {
+    return Color(int.parse("0xFF${hex.replaceAll('#', '')}"));
+  }
+}
