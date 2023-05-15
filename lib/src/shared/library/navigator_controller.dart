@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:remedio_da_hora/src/screens/home/home_screen.dart';
+import 'package:remedio_da_hora/src/screens/hoje/hoje_screen.dart';
+import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
 class NavigatorController {
   NavigatorController._();
@@ -13,11 +14,13 @@ class NavigatorController {
   BuildContext get currentContext =>
       _navigatorKey.currentState!.overlay!.context;
 
-  late Map<String, Widget Function(BuildContext)> _routes = {'/': (context) => HomeScreen()};
+  late Map<String, Widget Function(BuildContext)> _routes = {
+    '/': (context) => HojeScreen()
+  };
 
   Map<String, Widget Function(BuildContext)> get routes => _routes;
 
-  void addRoutes(Map<String, Widget Function(BuildContext)> route){
+  void addRoutes(Map<String, Widget Function(BuildContext)> route) {
     _routes[route.keys.first] = route[route.keys.first]!;
   }
 
@@ -34,9 +37,13 @@ class NavigatorController {
     );
   }
 
-  void pushNamed(String routeName) {
+  void pushNamed(String routeName, {bool replace = false}) {
+    if (replace) {
+      _navigatorKey.currentState!.pushReplacementNamed(routeName);
+      return;
+    }
+
     _navigatorKey.currentState!.pushNamed(routeName);
-    //_navigatorKey.currentState!.pushNamed(pushNamed);
   }
 
   popNavigate() {
@@ -61,7 +68,7 @@ class NavigatorController {
   }) {
     var modal = showModalBottomSheet(
       context: currentContext,
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor = Colors.transparent,
       isDismissible: isDismissible,
       enableDrag: enableDrag,
       isScrollControlled: true,
