@@ -12,6 +12,9 @@ class ConfiguracaoScreen extends StatefulWidget {
 class _ConfiguracaoScreenState extends State<ConfiguracaoScreen> {
   @override
   Widget build(BuildContext context) {
+        return Center(
+      child: Text('In progress'),
+    );
     return Scaffold(
       appBar: AppBar(),
       body: Container(),

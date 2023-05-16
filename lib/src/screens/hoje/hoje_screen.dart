@@ -17,18 +17,16 @@ class Teste {
   final String name;
 }
 
-var t = Teste(
-  name: 'Teste contador'
-);
+var t = Teste(name: 'Teste contador');
 
-class HojeScreen extends StatefulWidget{
+class HojeScreen extends StatefulWidget {
   const HojeScreen({super.key});
 
   @override
   State<HojeScreen> createState() => _HojeScreenState();
 }
 
-class _HojeScreenState extends State<HojeScreen>  with ColorsUtils{
+class _HojeScreenState extends State<HojeScreen> with ColorsUtils {
   HomeRoutes routesController = HomeRoutes();
   bool controller = false;
   var teste = Teste(name: 'Teste de inspec');
@@ -41,6 +39,9 @@ class _HojeScreenState extends State<HojeScreen>  with ColorsUtils{
 
   @override
   Widget build(BuildContext context) {
+    return Center(
+      child: Text('In progress'),
+    );
     return Scaffold(
       appBar: AppBar(backgroundColor: primaryBlue),
       body: Column(
