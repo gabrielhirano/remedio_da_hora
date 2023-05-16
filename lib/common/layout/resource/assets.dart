@@ -11,6 +11,7 @@ class ImageAssetsGenerate {
   const ImageAssetsGenerate();
 
   GenImage get imgMedicines => const GenImage('assets/images/img_medicine.png');
+  GenImage get imgTimerWithMedicines => const GenImage('assets/images/img_timer_with_medicines.png');
 }
 
 class SvgAssetsGenerate {
