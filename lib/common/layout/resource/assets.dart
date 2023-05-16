@@ -4,79 +4,58 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Assets {
   Assets._();
   static const svgs = SvgAssetsGenerate();
+  static const images = ImageAssetsGenerate();
+}
+
+class ImageAssetsGenerate {
+  const ImageAssetsGenerate();
+
+  GenImage get imgMedicines => const GenImage('assets/images/img_medicine.png');
 }
 
 class SvgAssetsGenerate {
   const SvgAssetsGenerate();
 
-  SvgGenImage get icPill => const SvgGenImage('assets/svgs/ic_pill.svg');
-  SvgGenImage get icBell => const SvgGenImage('assets/svgs/ic_bell.svg');
+  GenImage get icPill => const GenImage('assets/svgs/ic_pill.svg');
+  GenImage get icBell => const GenImage('assets/svgs/ic_bell.svg');
 
-  SvgGenImage get icSimpleCalendar => const SvgGenImage('assets/svgs/ic_simple_calendar.svg');
-  SvgGenImage get icProgress => const SvgGenImage('assets/svgs/ic_progress.svg');
-  SvgGenImage get icTreatament => const SvgGenImage('assets/svgs/ic_treatament.svg');
-  SvgGenImage get icEngine => const SvgGenImage('assets/svgs/ic_engine.svg');
+  GenImage get icSimpleCalendar =>
+      const GenImage('assets/svgs/ic_simple_calendar.svg');
+  GenImage get icProgress =>
+      const GenImage('assets/svgs/ic_progress.svg');
+  GenImage get icTreatament =>
+      const GenImage('assets/svgs/ic_treatament.svg');
+  GenImage get icEngine => const GenImage('assets/svgs/ic_engine.svg');
 
-
-  List<SvgGenImage> get values => [
-    icPill,
-    icBell,
-    icSimpleCalendar,
-    icProgress,
-    icTreatament,
-    icEngine
-  ];
+  List<GenImage> get values => [
+        icPill,
+        icBell,
+        icSimpleCalendar,
+        icProgress,
+        icTreatament,
+        icEngine,
+      ];
 }
 
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
+class GenImage {
+  const GenImage(this._assetName);
 
   final String _assetName;
 
-  SvgPicture svg({
-    double? width,
-    double? height,
-    Color? color
-    // Key? key,
-    // bool matchTextDirection = false,
-    // AssetBundle? bundle,
-    // String? package,
-    // double? width,
-    // double? height,
-    // BoxFit fit = BoxFit.contain,
-    // AlignmentGeometry alignment = Alignment.center,
-    // bool allowDrawingOutsideViewBox = false,
-    // WidgetBuilder? placeholderBuilder,
-    // Color? color,
-    // BlendMode colorBlendMode = BlendMode.srcIn,
-    // String? semanticsLabel,
-    // bool excludeFromSemantics = false,
-    // Clip clipBehavior = Clip.hardEdge,
-    // bool cacheColorFilter = false,
-    // SvgTheme? theme,
-  }) {
+  SvgPicture svg({double? width, double? height, Color? color}) {
     return SvgPicture.asset(
       _assetName,
       width: width,
       height: height,
       color: color,
-      // key: key,
-      // matchTextDirection: matchTextDirection,
-      // bundle: bundle,
-      // package: package,
-      // width: width,
-      // height: height,
-      // fit: fit,
-      // alignment: alignment,
-      // allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      // placeholderBuilder: placeholderBuilder,
-      // color: color,
-      // colorBlendMode: colorBlendMode,
-      // semanticsLabel: semanticsLabel,
-      // excludeFromSemantics: excludeFromSemantics,
-      // clipBehavior: clipBehavior,
-      // cacheColorFilter: cacheColorFilter,
-      // theme: theme,
+    );
+  }
+
+  Image png({double? width, double? height}) {
+    return Image.asset(
+      _assetName,
+      width: width,
+      height: height,
     );
   }
 
