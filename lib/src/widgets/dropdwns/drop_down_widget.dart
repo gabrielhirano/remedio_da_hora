@@ -56,7 +56,7 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget>
         value: widget.optionSelected, // Valor selecionado
         items: widget.itens,
         onChanged: (value) {
-          print(value);
+          // print(value);
           setState(() {
             widget.optionSelected = value;
           });

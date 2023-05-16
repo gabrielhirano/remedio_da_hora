@@ -192,7 +192,7 @@ class _CadastroHoraLembreteTratamentoScreenState
         widget.medicine.dose = optionsDoseSelected;
         
         DebugUtils.inspec(widget.medicine);
-        // widget.onNext();
+        widget.onNext.call();
       },
       text: 'Prosseguir',
       textColor: Colors.white,

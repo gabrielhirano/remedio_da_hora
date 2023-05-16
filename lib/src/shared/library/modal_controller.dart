@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ModalController {
   late BuildContext context;
+  int idController =0;
   ModalController();
 
   // late CustomContent customContent;

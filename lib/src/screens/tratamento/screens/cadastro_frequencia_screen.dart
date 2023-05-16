@@ -57,7 +57,6 @@ class _CadastroFrequenciaTratamentoScreenState
           _buildTitle(),
           const SizedBox(height: 5),
           _buildOptionsFrequency(),
-          const Spacer(),
           _buildButtonProsseguir()
         ],
       ),
@@ -83,8 +82,7 @@ class _CadastroFrequenciaTratamentoScreenState
   }
 
   Widget _buildOptionsFrequency() {
-    return SizedBox(
-      height: 250,
+    return Expanded(
       child: ListView.builder(
         itemCount: options.length,
         itemBuilder: ((context, index) {

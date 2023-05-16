@@ -16,6 +16,7 @@ class LocalRepository<T> implements BaseRepository<T> {
 
   @override
   Future<List> getAll() async {
+    // _sharedPreferences.clear();
     var listObjects = _sharedPreferences.getKeys();
     var listJson = [];
 
@@ -33,6 +34,7 @@ class LocalRepository<T> implements BaseRepository<T> {
 
   @override
   Future put(String key, object) async {
+    print('set key object ${key}');
     _sharedPreferences.setString(key, object.toString());
   }
 

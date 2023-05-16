@@ -25,7 +25,7 @@ class IconButtonWidget extends StatelessWidget {
     this.textColor,
     this.textSize,
     this.iconRight = false,
-    this.textWeight,
+    this.textWeight, this.borderColor,
   });
 
   final Function() onPressed;
@@ -33,6 +33,7 @@ class IconButtonWidget extends StatelessWidget {
   final double? height;
   final BorderRadiusOwn? borderRadius;
   final Color? color;
+  final Color? borderColor;
 
   final Widget icon;
   bool iconRight;
@@ -70,9 +71,11 @@ class IconButtonWidget extends StatelessWidget {
     itens.add(Text(
       text,
       style: TextStyle(
-          color: textColor ?? Colors.white,
-          fontSize: textSize ?? 15,
-          fontWeight: textWeight ?? FontWeight.w600),
+        color: textColor ?? Colors.white,
+        fontSize: textSize ?? 15,
+        fontWeight: textWeight ?? FontWeight.w600,
+        decoration: TextDecoration.none,
+      ),
     ));
 
     if (iconRight == true) {

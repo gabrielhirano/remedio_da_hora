@@ -28,16 +28,22 @@ class DataManagmentRepository<T> {
         .catchError((error) => error);
   }
 
-  Future<dynamic> put({required String name, required T object}) async {
+  Future<dynamic> put({required dynamic name, required T object}) async {
     return repository
-        .put(name, object)
-        .then((sucess) => sucess)
-        .catchError((error) => error);
+        .put(name.toString(), object)
+        .then((sucess){
+          print("suceess managmente $sucess");
+          return sucess;
+        })
+        .catchError((error){
+          print("suceess managmente $error");
+          throw error;
+        });
   }
 
-  Future<dynamic> delete({required String name, required T object}) async {
+  Future<dynamic> delete({required dynamic name, required T object}) async {
     return repository
-        .delete(name)
+        .delete(name.toString())
         .then((sucess) => sucess)
         .catchError((error) => error);
   }

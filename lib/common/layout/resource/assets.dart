@@ -28,6 +28,8 @@ class SvgAssetsGenerate {
       const GenImage('assets/svgs/ic_treatament.svg');
   GenImage get icEngine => const GenImage('assets/svgs/ic_engine.svg');
 
+    GenImage get icTrash => const GenImage('assets/svgs/ic_trash.svg');
+
   List<GenImage> get values => [
         icPill,
         icBell,

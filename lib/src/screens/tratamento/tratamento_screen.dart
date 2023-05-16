@@ -5,6 +5,7 @@ import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_frequencia_screen.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_hora_lembrete_screen.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_controller.dart';
+import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_lembrete_alterar_dados_widget.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
@@ -86,7 +87,17 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         itemCount: controller.medicamentos.length,
         itemBuilder: ((context, index) {
-          return CardLembreteWidget(medicine: controller.medicamentos[index]);
+
+          return CardLembreteWidget(
+            medicine: controller.medicamentos[index],
+            onPressed: () {
+
+              singModal.openDialog(
+                content: CardLembreteAlterarDadosWidget(medicine: controller.medicamentos[index], controller: controller,)
+              );
+
+            },
+          );
         }),
       ),
     );
@@ -157,7 +168,8 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         medicine: medicine,
         onNext: () {
           _closeStackRoutes();
-
+          medicine.id = singModal.idController++;
+          controller.cadastrarMedicamento(medicine);
           // finalizar o cadastro do item.
         },
       ),

@@ -17,11 +17,11 @@ class TratamentoController extends ChangeNotifier {
 
   late Function? reloadPage;
 
-  List<MedicineEntity> _medicamentos = [];
+  List<Medicine> _medicamentos = [];
 
   String _nameMedicamento = '';
 
-  UnmodifiableListView<MedicineEntity> get medicamentos =>
+  UnmodifiableListView<Medicine> get medicamentos =>
       UnmodifiableListView(_medicamentos);
 
   String get nomeMedicamento => _nameMedicamento;
@@ -33,12 +33,57 @@ class TratamentoController extends ChangeNotifier {
 
   buscarMedicamentos() async {
     _dataRepository.getAll().then((medicamentos) {
-      DebugUtils.genericLog(
-          'sucess ${medicamentos} ${medicamentos.runtimeType}', Level.debug);
-      _medicamentos.addAll(medicamentos!.map((medicine) => medicine.toEntity()));
+      _medicamentos = medicamentos!;
       notifyListeners();
-    }).catchError((error) {
-      DebugUtils.genericLog('Error ${error} ${medicamentos}', Level.error);
+    }).catchError((error, stackTrace) {
+      DebugUtils.log(
+        'Erro ao buscar medicamento',
+        name: 'tratamento controller',
+        error: '$error',
+        stackTrace: stackTrace,
+      );
+    });
+  }
+
+  cadastrarMedicamento(Medicine medicine) async {
+    _dataRepository.cadastrar(medicine).then((_) {
+      DebugUtils.log(
+        'Sucesso ao cadastrar medicamento',
+        name: 'tratamento controller',
+      );
+      buscarMedicamentos();
+    }).catchError((error, stackTrace) {
+      DebugUtils.log('Erro ao cadastrar medicamento',
+          name: 'tratamento controller',
+          error: '$error',
+          stackTrace: stackTrace);
+    });
+  }
+
+  alterarMedicamento(Medicine medicine) async {
+    print('Alterando');
+    _dataRepository.modificar(medicine).then((_) {
+      print('Sucess alteracao');
+      buscarMedicamentos();
+    }).catchError((error, stackTrace) {
+      DebugUtils.log('Erro ao alterar medicamento',
+          name: 'tratamento controller',
+          error: '$error',
+          stackTrace: stackTrace);
+    });
+  }
+
+  removerMedicamento(Medicine medicine) async {
+    _dataRepository.remover(medicine).then((_) {
+            DebugUtils.log('Sucesso ao remover medicamento',
+          name: 'tratamento controller',
+            );
+      buscarMedicamentos();
+    }).catchError((error, stackTrace) {
+      DebugUtils.log('Erro ao cadastrar medicamento',
+          name: 'tratamento controller',
+          error: '$error',
+          stackTrace: stackTrace);
     });
   }
 }
