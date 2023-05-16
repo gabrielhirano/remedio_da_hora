@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
+import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_selector_widget.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 
@@ -91,6 +92,30 @@ class _CadastroFrequenciaTratamentoScreenState
   }
 
   Widget _card(String index) {
+    return CardSelectorWidget(
+        onPressed: () {
+          setState(() {
+            valueDefault = index;
+          });
+        },
+        firstColumn: Text(
+          index,
+          style: TextStyle(
+              color: primaryBlueDark,
+              fontSize: 14,
+              fontWeight: FontWeight.bold),
+        ),
+        lastColumn: Radio<String>(
+          activeColor: primaryBlueDark,
+          value: index,
+          groupValue: valueDefault,
+          onChanged: (value) {
+            setState(() {
+              valueDefault = value!;
+              print(valueDefault);
+            });
+          },
+        ));
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.only(left: 15, right: 10),
@@ -103,12 +128,10 @@ class _CadastroFrequenciaTratamentoScreenState
         onTap: () {
           setState(() {
             valueDefault = index;
-            
           });
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               index,
@@ -118,7 +141,9 @@ class _CadastroFrequenciaTratamentoScreenState
                   fontWeight: FontWeight.bold),
             ),
             Expanded(
-              child: Container(color: secondaryBlueDark,),
+              child: Container(
+                color: secondaryBlueDark,
+              ),
             ),
             Radio<String>(
               activeColor: primaryBlueDark,
