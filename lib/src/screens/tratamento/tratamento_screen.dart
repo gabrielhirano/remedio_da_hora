@@ -5,13 +5,20 @@ import 'package:provider/provider.dart';
 import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
 import 'package:remedio_da_hora/src/models/medicine_model.dart';
+import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_frequencia_screen.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_controller.dart';
+import 'package:remedio_da_hora/src/shared/extensions/string_extension.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
 import 'package:remedio_da_hora/src/widgets/bottomsheets/bottom_sheet_list_option_widget.dart';
 import 'package:remedio_da_hora/src/widgets/bottomsheets/bottom_sheet_widget.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/icon_button_widget.dart';
+import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
+import 'package:remedio_da_hora/src/widgets/dropdwns/drop_down_widget.dart';
+
+import 'widgets/card_lembrete_widget.dart';
+import 'widgets/modal_cadastro_widget.dart';
 
 class TratamentoScreen extends StatefulWidget {
   const TratamentoScreen({super.key});
@@ -81,101 +88,17 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
   Widget _buildItens() {
     // controller.buscarMedicamentos();
     DebugUtils.log('Build itens', error: '${controller.medicamentos}');
-    if (controller.medicamentos.isEmpty) return CircularProgressIndicator();
+    if (controller.medicamentos.isEmpty)
+      return const CircularProgressIndicator();
 
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height - 132,
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         itemCount: controller.medicamentos.length,
         itemBuilder: ((context, index) {
-          return _card(controller.medicamentos[index]);
+          return CardLembreteWidget(medicine: controller.medicamentos[index]);
         }),
-      ),
-    );
-
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    //   child: _card(Medicine(
-    //       id: 1,
-    //       dose: 2,
-    //       frequency: 'Diario',
-    //       name: 'Paracetamol 500 mg Pó para Solução Oral',
-    //       active: true,
-    //       time: '08:00')),
-    // );
-  }
-
-  Widget _card(Medicine medicine) {
-    return Container(
-      height: 150,
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.only(left: 15, right: 30, bottom: 10),
-      decoration: BoxDecoration(
-        color: primaryBlue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Assets.svgs.icPill.svg(
-                width: 22,
-                height: 22,
-                color: primaryBlueDark,
-              ),
-              const SizedBox(width: 15),
-              Flexible(
-                child: Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      medicine.name,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: primaryBlueDark),
-                    )),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Text(
-            '${medicine.frequency} - ${medicine.time}',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: primaryBlueDarkLight),
-          ),
-          const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 25,
-                width: 90,
-                decoration: BoxDecoration(
-                  color: primaryBlueDarkLight,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text(
-                  '${medicine.dose} unidade(s)',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue),
-                ),
-              ),
-              Assets.svgs.icBell.svg(
-                width: 22,
-                height: 22,
-                color: primaryBlueDark,
-              ),
-            ],
-          )
-        ],
       ),
     );
   }
@@ -211,135 +134,20 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
             icon: Assets.svgs.icPill.svg(width: 20, height: 20),
             text: 'Medicamento',
             onPressed: () {
-              singModal.openDialog(content: _modalCadastroNomeMedicamento());
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _modalCadastroNomeMedicamento() {
-    return Container(
-      height: 200,
-      decoration: BoxDecoration(
-          color: primaryBlue, borderRadius: AppShapes.radius(RadiusSize.small)),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-      child: Column(
-        children: [
-          // Container(
-          //   child: Row(children: [
-          //     Assets.svgs.icPill.svg(
-          //         width: 24, height: 24, color: primaryBlueDark),
-          //     const SizedBox(
-          //       width: 50,
-          //     ),
-          //     Text(
-          //       'Medicamentos',
-          //       style: TextStyle(
-          //           color: primaryBlueDark,
-          //           fontSize: 16,
-          //           decoration: TextDecoration.none),
-          //     )
-          //   ]),
-          // ),
-          Text(
-            'Medicamentos',
-            style: TextStyle(
-                color: primaryBlueDark,
-                fontSize: 16,
-                decoration: TextDecoration.none),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            height: 50,
-            child: Material(
-              borderRadius: AppShapes.radius(RadiusSize.small),
-              child: TextField(
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: primaryBlueDark)),
-                  labelText: 'Nome do medicamento',
-                  labelStyle: TextStyle(color: primaryBlueDark),
-                  hintText: 'Ex: Paracetamol...',
-                  hintStyle: TextStyle(color: primaryBlueDark),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 9), // Define o espaçamento à esquerda
-                    child: Assets.svgs.icPill.svg(
-                      width: 22,
-                      height: 22,
-                      color: primaryBlueDark,
-                    ),
-                  ),
-                  prefixIconConstraints:
-                      const BoxConstraints(maxHeight: 40, maxWidth: 40),
-                  border: OutlineInputBorder(
-                    borderRadius: AppShapes.radius(RadiusSize.small),
-                    // borderSide: BorderSide(
-                    //   color: ColorsUtils
-                    //       .primaryBlueDark, // Define a cor da borda
-                    //   width: 2, // Define a largura da borda
-                    // ),
-                  ),
-                ),
-                controller: textController,
-                keyboardType: TextInputType.text,
-                onChanged: (value) {
-                  print(value);
-                },
-              ),
-            ),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 9),
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: AppShapes.radius(RadiusSize.small),
-                color: secondaryBlueDark),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Unidade',
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: primaryBlueDark,
-                      decoration: TextDecoration.none),
-                ),
-                const Spacer(),
-                Material(
-                  child: DropdownButton(
-                    autofocus: true,
-                    focusColor: secondaryBlueDark,
-                    value: optionUnidade, // Valor selecionado
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'Opção 1',
-                        child: Text('Opção 1'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Opção 2',
-                        child: Text('Opção 2'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Opção 3',
-                        child: Text('Opção 3'),
-                      ),
-                    ],
-                    
-                    onChanged: (value) {
-                      setState(() {
+              singModal.openDialog(
+                  content: ModalCadastroWidget(
+                textController: textController,
+                onPressed: () {
+                  singNavigator.navigate(
+                    CadastroFrequenciaTratamentoScreen(
+                      onPressed: () {
                         
-                        optionUnidade = value!;
-                      });
-                    },
-                  ),
-                )
-              ],
-            ),
+                      },
+                    ),
+                  );
+                },
+              ));
+            },
           )
         ],
       ),
