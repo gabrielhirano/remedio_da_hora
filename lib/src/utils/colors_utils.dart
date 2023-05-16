@@ -10,6 +10,8 @@ mixin ColorsUtils {
 
   Color get secondaryBlueDark => getColorByHex('#A6BECE');
 
+  Color get buttonColor => getColorByHex('#0079C6');
+
   Color getColorByHex(String hex) {
     return Color(int.parse("0xFF${hex.replaceAll('#', '')}"));
   }
