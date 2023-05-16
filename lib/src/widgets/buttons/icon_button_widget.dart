@@ -1,14 +1,4 @@
 import 'package:flutter/material.dart';
-/*
-Icon(
-  Icons.circle,
-  color: Colors.white,
-  size: 25,
-),
-     width: 120,
-        height: 50,
-
- */
 
 enum BorderRadiusOwn { circular, softCircular, none }
 
@@ -23,7 +13,7 @@ extension borderRadiusValues on BorderRadiusOwn {
 }
 
 class IconButtonWidget extends StatelessWidget {
-  const IconButtonWidget({
+  IconButtonWidget({
     super.key,
     this.width,
     this.height,
@@ -34,6 +24,8 @@ class IconButtonWidget extends StatelessWidget {
     required this.onPressed,
     this.textColor,
     this.textSize,
+    this.iconRight = false,
+    this.textWeight,
   });
 
   final Function() onPressed;
@@ -43,10 +35,12 @@ class IconButtonWidget extends StatelessWidget {
   final Color? color;
 
   final Widget icon;
+  bool iconRight;
 
   final String text;
   final Color? textColor;
   final double? textSize;
+  final FontWeight? textWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +50,34 @@ class IconButtonWidget extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(borderRadius!.size())),
+            color: color,
+            borderRadius: BorderRadius.circular(borderRadius!.size())),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            icon,
-            const SizedBox(width: 5),
-            Text(
-              text,
-              style: TextStyle(
-                  color: textColor ?? Colors.white,
-                  fontSize: textSize ?? 15,
-                  fontWeight: FontWeight.w600),
-            )
-          ],
+          children: _buildItensOrdened(),
         ),
       ),
     );
-    ;
+  }
+
+  List<Widget> _buildItensOrdened() {
+    List<Widget> itens = [];
+    if (iconRight == false) {
+      itens.add(icon);
+    }
+    itens.add(const SizedBox(width: 5));
+    itens.add(Text(
+      text,
+      style: TextStyle(
+          color: textColor ?? Colors.white,
+          fontSize: textSize ?? 15,
+          fontWeight: textWeight ?? FontWeight.w600),
+    ));
+
+    if (iconRight == true) {
+      itens.add(icon);
+    }
+    return itens;
   }
 }

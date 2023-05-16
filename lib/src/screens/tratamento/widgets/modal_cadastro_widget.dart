@@ -9,9 +9,9 @@ import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 import 'package:remedio_da_hora/src/widgets/dropdwns/drop_down_widget.dart';
 
 class ModalCadastroWidget extends StatefulWidget {
-  const ModalCadastroWidget({super.key, required this.textController, required this.onPressed});
+  const ModalCadastroWidget({super.key, required this.textController, required this.onNext});
   final TextEditingController textController;
-  final Function() onPressed;
+  final Function() onNext;
 
   @override
   State<ModalCadastroWidget> createState() => _ModalCadastroWidgetState();
@@ -149,7 +149,7 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
 
   Widget _buildButtonProsseguir() {
     return TextButtonWidget(
-      onPressed: widget.onPressed.call,
+      onPressed: widget.onNext.call,
       text: 'Prosseguir',
       textColor: Colors.white,
       backgroundColor: buttonColor,

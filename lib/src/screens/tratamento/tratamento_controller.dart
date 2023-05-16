@@ -19,12 +19,22 @@ class TratamentoController extends ChangeNotifier {
 
   List<Medicine> _medicamentos = [];
 
+  String _nameMedicamento = '';
+
   UnmodifiableListView<Medicine> get medicamentos =>
       UnmodifiableListView(_medicamentos);
 
+  String get nomeMedicamento => _nameMedicamento;
+
+  void updateName(String newName) {
+    _nameMedicamento = newName;
+    notifyListeners();
+  }
+
   buscarMedicamentos() async {
     _dataRepository.getAll().then((medicamentos) {
-      DebugUtils.genericLog('sucess ${medicamentos} ${medicamentos.runtimeType}', Level.debug);
+      DebugUtils.genericLog(
+          'sucess ${medicamentos} ${medicamentos.runtimeType}', Level.debug);
       _medicamentos.addAll(medicamentos!);
       notifyListeners();
     }).catchError((error) {

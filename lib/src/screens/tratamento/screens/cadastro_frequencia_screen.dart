@@ -9,8 +9,8 @@ import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 
 class CadastroFrequenciaTratamentoScreen extends StatefulWidget {
   const CadastroFrequenciaTratamentoScreen(
-      {super.key, required this.onPressed});
-  final Function() onPressed;
+      {super.key, required this.onNext});
+  final Function() onNext;
 
   @override
   State<CadastroFrequenciaTratamentoScreen> createState() =>
@@ -41,7 +41,7 @@ class _CadastroFrequenciaTratamentoScreenState
 
   Widget _buildBody() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.fromLTRB(30,0,30,20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -55,6 +55,7 @@ class _CadastroFrequenciaTratamentoScreenState
           _buildTitle(),
           const SizedBox(height: 5),
           _buildOptionsFrequency(),
+          const Spacer(),
           _buildButtonProsseguir()
         ],
       ),
@@ -80,8 +81,8 @@ class _CadastroFrequenciaTratamentoScreenState
   }
 
   Widget _buildOptionsFrequency() {
-    return Container(
-      height: 260,
+    return SizedBox(
+      height: 250,
       child: ListView.builder(
         itemCount: options.length,
         itemBuilder: ((context, index) {
@@ -116,55 +117,11 @@ class _CadastroFrequenciaTratamentoScreenState
             });
           },
         ));
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.only(left: 15, right: 10),
-      width: double.infinity,
-      height: 50,
-      decoration: BoxDecoration(
-          color: secondaryBlueDark,
-          borderRadius: AppShapes.radius(RadiusSize.small)),
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            valueDefault = index;
-          });
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              index,
-              style: TextStyle(
-                  color: primaryBlueDark,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: Container(
-                color: secondaryBlueDark,
-              ),
-            ),
-            Radio<String>(
-              activeColor: primaryBlueDark,
-              value: index,
-              groupValue: valueDefault,
-              onChanged: (value) {
-                setState(() {
-                  valueDefault = value!;
-                  print(valueDefault);
-                });
-              },
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _buildButtonProsseguir() {
     return TextButtonWidget(
-      onPressed: widget.onPressed.call,
+      onPressed: widget.onNext.call,
       text: 'Prosseguir',
       textColor: Colors.white,
       backgroundColor: buttonColor,

@@ -8,7 +8,9 @@ class DropdownButtonWidget extends StatefulWidget {
     super.key,
     required this.optionSelected,
     required this.onChanged,
-    required this.itens, this.focus,
+    required this.itens,
+    this.focus,
+    this.backgroundColor,
   });
 
   late String optionSelected;
@@ -18,23 +20,37 @@ class DropdownButtonWidget extends StatefulWidget {
   final FocusNode? focus;
 
   final Function(String?) onChanged;
+  final Color? backgroundColor;
 
   @override
   State<DropdownButtonWidget> createState() => _DropdownButtonWidgetState();
 }
 
-class _DropdownButtonWidgetState extends State<DropdownButtonWidget> with ColorsUtils {
+class _DropdownButtonWidgetState extends State<DropdownButtonWidget>
+    with ColorsUtils {
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // final controller =
+      //     Provider.of<TratamentoController>(context, listen: false);
+      // controller.buscarMedicamentos();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: widget.backgroundColor,
       child: DropdownButton(
-        focusNode: widget.focus,
+        // focusNode: widget.focus,
         style: TextStyle(
             color: primaryBlueDark, fontSize: 12, fontWeight: FontWeight.bold),
         autofocus: true,
-        focusColor: Colors.white,
+        focusColor: widget.backgroundColor ?? Colors.white,
         // isDense: true,
-        // dropdownColor: secondaryBlueDark,
+        //dropdownColor: widget.backgroundColor ?? Colors.white,
         underline: Container(),
         iconEnabledColor: primaryBlueDark,
         value: widget.optionSelected, // Valor selecionado

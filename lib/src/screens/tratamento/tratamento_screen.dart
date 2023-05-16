@@ -6,6 +6,7 @@ import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
 import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_frequencia_screen.dart';
+import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_hora_lembrete_screen.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_controller.dart';
 import 'package:remedio_da_hora/src/shared/extensions/string_extension.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
@@ -137,11 +138,22 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
               singModal.openDialog(
                   content: ModalCadastroWidget(
                 textController: textController,
-                onPressed: () {
+                onNext: () {
                   singNavigator.navigate(
                     CadastroFrequenciaTratamentoScreen(
-                      onPressed: () {
-                        
+                      onNext: () {
+                        singNavigator.navigate(
+                          CadastroHoraLembreteTratamentoScreen(
+                            onNext: () {
+                              singNavigator.popNavigate();
+                              singNavigator.popNavigate();
+                              singNavigator.popNavigate();
+                              singNavigator.popNavigate();
+                              
+                              // finalizar o cadastro do item.
+                            },
+                          ),
+                        );
                       },
                     ),
                   );
