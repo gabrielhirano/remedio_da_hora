@@ -47,7 +47,7 @@ class _BottomNavigateState extends State<BottomNavigate>  with ColorsUtils{
         unselectedItemColor: primaryBlueDark,
         currentIndex: _selectedIndex,
         onTap: (i) => setState(() => _selectedIndex = i),
-        selectedFontSize: 10.0,
+        selectedFontSize: 12.0,
         unselectedFontSize: 10.0,
         items: [
           BottomNavigationBarItem(

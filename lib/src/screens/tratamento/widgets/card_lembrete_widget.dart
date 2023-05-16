@@ -7,14 +7,14 @@ import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 
 class CardLembreteWidget extends StatelessWidget with ColorsUtils{
   const CardLembreteWidget({super.key, required this.medicine});
-  final Medicine medicine;
+  final MedicineEntity medicine;
   
   @override
   Widget build(BuildContext context) {
     return _card(medicine);
   }
 
-  Widget _card(Medicine medicine) {
+  Widget _card(MedicineEntity medicine) {
     return Container(
       height: 150,
       width: double.infinity,

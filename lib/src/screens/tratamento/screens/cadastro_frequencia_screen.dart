@@ -3,13 +3,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
+import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_selector_widget.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 
 class CadastroFrequenciaTratamentoScreen extends StatefulWidget {
   const CadastroFrequenciaTratamentoScreen(
-      {super.key, required this.onNext});
+      {super.key, required this.onNext, required this.medicine});
+  final Medicine medicine;
   final Function() onNext;
 
   @override
@@ -41,7 +43,7 @@ class _CadastroFrequenciaTratamentoScreenState
 
   Widget _buildBody() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30,0,30,20),
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -113,7 +115,6 @@ class _CadastroFrequenciaTratamentoScreenState
           onChanged: (value) {
             setState(() {
               valueDefault = value!;
-              print(valueDefault);
             });
           },
         ));
@@ -121,7 +122,11 @@ class _CadastroFrequenciaTratamentoScreenState
 
   Widget _buildButtonProsseguir() {
     return TextButtonWidget(
-      onPressed: widget.onNext.call,
+      onPressed: () {
+        widget.medicine.frequency = valueDefault;
+        
+        widget.onNext.call();
+      },
       text: 'Prosseguir',
       textColor: Colors.white,
       backgroundColor: buttonColor,

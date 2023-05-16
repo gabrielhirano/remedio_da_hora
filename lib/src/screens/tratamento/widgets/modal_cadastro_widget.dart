@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
+import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/shared/extensions/string_extension.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 import 'package:remedio_da_hora/src/widgets/dropdwns/drop_down_widget.dart';
 
 class ModalCadastroWidget extends StatefulWidget {
-  const ModalCadastroWidget({super.key, required this.textController, required this.onNext});
-  final TextEditingController textController;
+  const ModalCadastroWidget(
+      {super.key, required this.medicine, required this.onNext});
+  final Medicine medicine;
   final Function() onNext;
 
   @override
@@ -19,6 +19,37 @@ class ModalCadastroWidget extends StatefulWidget {
 
 class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
     with ColorsUtils {
+  TextEditingController textController = TextEditingController();
+
+  String optionUnitySelected = 'comprimido';
+
+  List<DropdownMenuItem<String>> itens = [
+    DropdownMenuItem(
+      value: 'comprimido',
+      child: Text('comprimido'.captalize()),
+    ),
+    DropdownMenuItem(
+      value: 'mililitro',
+      child: Text('mililitro'.captalize()),
+    ),
+    DropdownMenuItem(
+      value: 'miligrama',
+      child: Text('miligrama'.captalize()),
+    ),
+    DropdownMenuItem(
+      value: 'grama',
+      child: Text('grama'.captalize()),
+    ),
+    DropdownMenuItem(
+      value: 'spray',
+      child: Text('spray'.captalize()),
+    ),
+    DropdownMenuItem(
+      value: 'gota',
+      child: Text('gota'.captalize()),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return _modalCadastroNomeMedicamento();
@@ -42,7 +73,7 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
           const SizedBox(height: 5),
           _buildNomeMedicamentoReativo(),
           const SizedBox(height: 10),
-          Container(
+          SizedBox(
             height: 50,
             child: Material(
               borderRadius: AppShapes.radius(RadiusSize.small),
@@ -67,7 +98,7 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
                     borderRadius: AppShapes.radius(RadiusSize.small),
                   ),
                 ),
-                controller: widget.textController,
+                controller: textController,
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
                   setState(() {});
@@ -85,13 +116,13 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
   }
 
   Widget _buildNomeMedicamentoReativo() {
-    if(widget.textController.text.isEmpty) return const SizedBox.shrink();
+    if (textController.text.isEmpty) return const SizedBox.shrink();
     return Container(
       height: 20,
       width: double.infinity,
       alignment: Alignment.centerLeft,
       child: Text(
-        widget.textController.text.toString(),
+        textController.text.toString(),
         style: TextStyle(
             color: primaryBlueDark,
             fontSize: 12,
@@ -123,23 +154,12 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
           const Spacer(),
           SizedBox(
             height: 40,
-            child: DropdownButtonWidget(
-              optionSelected: 'teste 1',
-              itens: [
-                DropdownMenuItem(
-                  value: 'teste 1',
-                  child: Text('teste 1'.captalize()),
-                ),
-                DropdownMenuItem(
-                  value: 'teste 2',
-                  child: Text('teste 2'.captalize()),
-                ),
-                DropdownMenuItem(
-                  value: 'teste 3',
-                  child: Text('teste 3'.captalize()),
-                ),
-              ],
-              onChanged: (value) {},
+            child: DropdownButtonWidget<String>(
+              optionSelected: optionUnitySelected,
+              itens: itens,
+              onChanged: (value) {
+                optionUnitySelected = value;
+              },
             ),
           ),
         ],
@@ -149,7 +169,12 @@ class _ModalCadastroWidgetState extends State<ModalCadastroWidget>
 
   Widget _buildButtonProsseguir() {
     return TextButtonWidget(
-      onPressed: widget.onNext.call,
+      onPressed: (){
+        widget.medicine.name = textController.text;
+        widget.medicine.unity = optionUnitySelected;
+        
+        widget.onNext.call();
+      },
       text: 'Prosseguir',
       textColor: Colors.white,
       backgroundColor: buttonColor,

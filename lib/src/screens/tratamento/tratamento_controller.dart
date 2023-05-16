@@ -17,11 +17,11 @@ class TratamentoController extends ChangeNotifier {
 
   late Function? reloadPage;
 
-  List<Medicine> _medicamentos = [];
+  List<MedicineEntity> _medicamentos = [];
 
   String _nameMedicamento = '';
 
-  UnmodifiableListView<Medicine> get medicamentos =>
+  UnmodifiableListView<MedicineEntity> get medicamentos =>
       UnmodifiableListView(_medicamentos);
 
   String get nomeMedicamento => _nameMedicamento;
@@ -35,7 +35,7 @@ class TratamentoController extends ChangeNotifier {
     _dataRepository.getAll().then((medicamentos) {
       DebugUtils.genericLog(
           'sucess ${medicamentos} ${medicamentos.runtimeType}', Level.debug);
-      _medicamentos.addAll(medicamentos!);
+      _medicamentos.addAll(medicamentos!.map((medicine) => medicine.toEntity()));
       notifyListeners();
     }).catchError((error) {
       DebugUtils.genericLog('Error ${error} ${medicamentos}', Level.error);

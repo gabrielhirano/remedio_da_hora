@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 
-class DropdownButtonWidget extends StatefulWidget {
+class DropdownButtonWidget<T> extends StatefulWidget {
   DropdownButtonWidget({
     super.key,
     required this.optionSelected,
@@ -13,13 +13,13 @@ class DropdownButtonWidget extends StatefulWidget {
     this.backgroundColor,
   });
 
-  late String optionSelected;
+  late T optionSelected;
 
-  final List<DropdownMenuItem<String>> itens;
+  final List<DropdownMenuItem<T>> itens;
 
   final FocusNode? focus;
 
-  final Function(String?) onChanged;
+  final Function(dynamic) onChanged;
   final Color? backgroundColor;
 
   @override
@@ -56,11 +56,11 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget>
         value: widget.optionSelected, // Valor selecionado
         items: widget.itens,
         onChanged: (value) {
+          print(value);
           setState(() {
-            widget.optionSelected = value.toString();
+            widget.optionSelected = value;
           });
-
-          widget.onChanged.call(value.toString());
+          widget.onChanged(value);
         },
       ),
     );

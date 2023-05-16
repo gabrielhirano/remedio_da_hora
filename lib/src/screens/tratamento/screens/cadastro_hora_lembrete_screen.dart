@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
+import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_selector_widget.dart';
 import 'package:remedio_da_hora/src/shared/extensions/string_extension.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
+import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/icon_button_widget.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 import 'package:remedio_da_hora/src/widgets/dropdwns/drop_down_widget.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:remedio_da_hora/src/widgets/timer_picker_widget.dart';
 
 class CadastroHoraLembreteTratamentoScreen extends StatefulWidget {
-  const CadastroHoraLembreteTratamentoScreen({super.key, required this.onNext});
+  const CadastroHoraLembreteTratamentoScreen(
+      {super.key, required this.onNext, required this.medicine});
+  final Medicine medicine;
   final Function() onNext;
 
   @override
@@ -23,24 +24,45 @@ class CadastroHoraLembreteTratamentoScreen extends StatefulWidget {
 
 class _CadastroHoraLembreteTratamentoScreenState
     extends State<CadastroHoraLembreteTratamentoScreen> with ColorsUtils {
+
   String _horaController = '08:00';
 
-  List<DropdownMenuItem<String>> optionsDose = [
-    DropdownMenuItem(
-      value: 'teste 1',
-      child: Text('teste 1'.captalize()),
-    ),
-    DropdownMenuItem(
-      value: 'teste 2',
-      child: Text('teste 2'.captalize()),
-    ),
-    DropdownMenuItem(
-      value: 'teste 3',
-      child: Text('teste 3'.captalize()),
-    ),
-  ];
+  late List<DropdownMenuItem<int>> optionsDose;
 
-  String optionsDoseSelected = 'teste 1';
+  int optionsDoseSelected = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _fillHoraController();
+    optionsDose = [
+      DropdownMenuItem(
+        value: 1,
+        child: Text('1 ${widget.medicine.unity}'.captalize()),
+      ),
+      DropdownMenuItem(
+        value: 2,
+        child: Text('2 ${widget.medicine.unity}s'.captalize()),
+      ),
+      DropdownMenuItem(
+        value: 3,
+        child: Text('3 ${widget.medicine.unity}s'.captalize()),
+      ),
+      DropdownMenuItem(
+        value: 4,
+        child: Text('4 ${widget.medicine.unity}s'.captalize()),
+      ),
+    ];
+  }
+
+  _fillHoraController(){
+    _horaController = <String, String>{
+      'Uma vez ao dia': '15:00',
+      'Duas vez ao dia': '12:00',
+      'Tres vez ao dia': '08:00',
+      'Quatro vez ao dia': '06:00',
+    }[widget.medicine.frequency]!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,30 +79,27 @@ class _CadastroHoraLembreteTratamentoScreenState
   Widget _buildBody() {
     return Padding(
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 20),
-        child: Container(
-          // color: Colors.red,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                child: Assets.images.imgTimerWithMedicines.png(height: 200),
-              ),
-              _buildNameMedicine(),
-              _buildTitle(),
-              const SizedBox(height: 5),
-              const Spacer(),
-              _buildOptionsFrequency(),
-              _buildButtonProsseguir()
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              child: Assets.images.imgTimerWithMedicines.png(height: 200),
+            ),
+            _buildNameMedicine(),
+            _buildTitle(),
+            const SizedBox(height: 5),
+            const Spacer(),
+            _buildOptionsFrequency(),
+            _buildButtonProsseguir()
+          ],
         ));
   }
 
   Widget _buildNameMedicine() {
     return Text(
-      'Paracetamol 500mg Pó  para Solução Oral',
+      widget.medicine.name!.captalize(allWorlds: true),
       style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
@@ -89,8 +108,9 @@ class _CadastroHoraLembreteTratamentoScreenState
   }
 
   Widget _buildTitle() {
+    String prefixText = widget.medicine.frequency == 'Uma vez ao dia' ? '' : 'primeiro';
     return Text(
-      'Qual sera o horário do lembrete?',
+      'Qual sera o horário do $prefixText lembrete?',
       style: TextStyle(
           fontSize: 20, fontWeight: FontWeight.bold, color: primaryBlueDark),
     );
@@ -134,9 +154,14 @@ class _CadastroHoraLembreteTratamentoScreenState
 
   _openTimerController() {
     singModal.openDialog(
-        content: TimerPickerWidget(
-      onConfirm: (hours) {},
-    ));
+      content: TimerPickerWidget(
+        onConfirm: (hours) {
+          setState(() {
+            _horaController = hours;
+          });
+        },
+      ),
+    );
   }
 
   Widget _card() {
@@ -147,12 +172,14 @@ class _CadastroHoraLembreteTratamentoScreenState
         style: TextStyle(
             color: primaryBlueDark, fontSize: 14, fontWeight: FontWeight.bold),
       ),
-      lastColumn: DropdownButtonWidget(
+      lastColumn: DropdownButtonWidget<int>(
         backgroundColor: secondaryBlueDark,
         optionSelected: optionsDoseSelected,
         itens: optionsDose,
-        onChanged: (value){
-
+        onChanged: (value) {
+          setState(() {
+            optionsDoseSelected = value!;
+          });
         },
       ),
     );
@@ -161,7 +188,11 @@ class _CadastroHoraLembreteTratamentoScreenState
   Widget _buildButtonProsseguir() {
     return TextButtonWidget(
       onPressed: () {
-        widget.onNext.call();
+        widget.medicine.time = _horaController;
+        widget.medicine.dose = optionsDoseSelected;
+        
+        DebugUtils.inspec(widget.medicine);
+        // widget.onNext();
       },
       text: 'Prosseguir',
       textColor: Colors.white,
