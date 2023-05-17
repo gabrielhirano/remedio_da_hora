@@ -47,6 +47,3 @@ class Medicine {
   String toString() => jsonEncode(toJson());
 }
 
-extension EmployerExtension on Map<String, dynamic> {
-  dynamic toEntity() {}
-}

@@ -87,7 +87,8 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         itemCount: controller.medicamentos.length,
         itemBuilder: ((context, index) {
-
+          singModal.idController = controller.medicamentos.last.id!.toInt();
+          
           return CardLembreteWidget(
             medicine: controller.medicamentos[index],
             onPressed: () {
@@ -168,7 +169,8 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         medicine: medicine,
         onNext: () {
           _closeStackRoutes();
-          medicine.id = singModal.idController++;
+          medicine.id = singModal.idController = singModal.idController+1;
+          DebugUtils.log('==== cadastro ${medicine.id}');
           controller.cadastrarMedicamento(medicine);
           // finalizar o cadastro do item.
         },

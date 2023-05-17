@@ -22,10 +22,10 @@ class CadastroFrequenciaTratamentoScreen extends StatefulWidget {
 class _CadastroFrequenciaTratamentoScreenState
     extends State<CadastroFrequenciaTratamentoScreen> with ColorsUtils {
   final List<String> options = [
-    'Uma vez ao dia',
-    'Duas vez ao dia',
-    'Tres vez ao dia',
-    'Quatro vez ao dia',
+    '1 vez ao dia',
+    '2 vezes ao dia',
+    '3 vezes ao dia',
+    '4 vezes ao dia',
   ];
   late String valueDefault = options[0];
 
@@ -111,6 +111,7 @@ class _CadastroFrequenciaTratamentoScreenState
           value: index,
           groupValue: valueDefault,
           onChanged: (value) {
+            print(value);
             setState(() {
               valueDefault = value!;
             });
@@ -122,7 +123,7 @@ class _CadastroFrequenciaTratamentoScreenState
     return TextButtonWidget(
       onPressed: () {
         widget.medicine.frequency = valueDefault;
-        
+
         widget.onNext.call();
       },
       text: 'Prosseguir',

@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
+import 'package:remedio_da_hora/src/data/data_source.dart/remote_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 
 class DataManagmentRepository<T> {
   final BaseRepository repository;
+
   final T Function(Map<String, dynamic>) fromJson;
 
   DataManagmentRepository({required this.repository, required this.fromJson});
+
 
   Future<T?> get({required String name}) async {
     return repository
@@ -29,16 +33,13 @@ class DataManagmentRepository<T> {
   }
 
   Future<dynamic> put({required dynamic name, required T object}) async {
-    return repository
-        .put(name.toString(), object)
-        .then((sucess){
-          print("suceess managmente $sucess");
-          return sucess;
-        })
-        .catchError((error){
-          print("suceess managmente $error");
-          throw error;
-        });
+    return repository.put(name.toString(), object).then((sucess) {
+      print("suceess managmente $sucess");
+      return sucess;
+    }).catchError((error) {
+      print("suceess managmente $error");
+      throw error;
+    });
   }
 
   Future<dynamic> delete({required dynamic name, required T object}) async {

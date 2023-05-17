@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
+import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalRepository<T> implements BaseRepository<T> {
+class LocalRepository implements BaseRepository {
   late SharedPreferences _sharedPreferences;
 
   LocalRepository() : super() {
@@ -29,12 +30,12 @@ class LocalRepository<T> implements BaseRepository<T> {
 
   @override
   Future post(String key, object) async {
+    DebugUtils.inspec(object);
     _sharedPreferences.setString(key, object.toString());
   }
 
   @override
   Future put(String key, object) async {
-    print('set key object ${key}');
     _sharedPreferences.setString(key, object.toString());
   }
 

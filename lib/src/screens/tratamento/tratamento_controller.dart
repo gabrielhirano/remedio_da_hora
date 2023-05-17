@@ -8,7 +8,7 @@ import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
 class TratamentoController extends ChangeNotifier {
-  final BaseRepository<Medicine> _baseRepository;
+  final BaseRepository _baseRepository;
   late final MedicineRepository _dataRepository;
 
   TratamentoController(this._baseRepository) {

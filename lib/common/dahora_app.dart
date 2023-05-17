@@ -29,12 +29,12 @@ class _DahoraAppState extends State<DahoraApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<BaseRepository<Medicine>>(
-          create: (_) => LocalRepository<Medicine>(),
+        Provider<BaseRepository>(
+          create: (_) => LocalRepository(),
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              TratamentoController(context.read<BaseRepository<Medicine>>()),
+              TratamentoController(context.read<BaseRepository>()),
         )
       ],
       child: MaterialApp(

@@ -204,32 +204,37 @@ class _CardLembreteAlterarDadosWidgetState
   Widget _buildDropDownFrequency() {
     optionsFrequency = const [
       DropdownMenuItem(
-        value: 'Uma vez ao dia',
-        child: Text('Uma vez ao dia'),
+        value: '1 vez ao dia',
+        child: Text('1 vez ao dia'),
       ),
       DropdownMenuItem(
-        value: 'Duas vez ao dia',
-        child: Text('Duas vez ao dia'),
+        value: '2 vezes ao dia',
+        child: Text('2 vezes ao dia'),
       ),
       DropdownMenuItem(
-        value: 'Tres vez ao dia',
-        child: Text('Tres vez ao dia'),
+        value: '3 vezes ao dia',
+        child: Text('3 vezes ao dia'),
       ),
       DropdownMenuItem(
-        value: 'Quatro vez ao dia',
-        child: Text('Quatro vez ao dia'),
+        value: '4 vezes ao dia',
+        child: Text('4 vezes ao dia'),
       ),
     ];
 
-    return DropdownButtonWidget<String>(
-      backgroundColor: secondaryBlueDark,
-      optionSelected: optionFrequencySelected,
-      itens: optionsFrequency,
-      onChanged: (value) {
-        setState(() {
-          optionFrequencySelected = value!;
-        });
-      },
+    return Container(
+      height: 46,
+      alignment: Alignment.center,
+      child: DropdownButtonWidget<String>(
+        backgroundColor: secondaryBlueDark,
+        optionSelected: optionFrequencySelected,
+        itens: optionsFrequency,
+        onChanged: (value) {
+          print(value);
+          setState(() {
+            optionFrequencySelected = value!;
+          });
+        },
+      ),
     );
   }
 
@@ -261,15 +266,19 @@ class _CardLembreteAlterarDadosWidgetState
       ),
     ];
 
-    return DropdownButtonWidget<String>(
-      backgroundColor: secondaryBlueDark,
-      optionSelected: optionsUnitySelected,
-      itens: optionsUnity,
-      onChanged: (value) {
-        setState(() {
-          optionsUnitySelected = value;
-        });
-      },
+    return Container(
+      height: 46,
+      alignment: Alignment.center,
+      child: DropdownButtonWidget<String>(
+        backgroundColor: secondaryBlueDark,
+        optionSelected: optionsUnitySelected,
+        itens: optionsUnity,
+        onChanged: (value) {
+          setState(() {
+            optionsUnitySelected = value;
+          });
+        },
+      ),
     );
   }
 
@@ -277,31 +286,35 @@ class _CardLembreteAlterarDadosWidgetState
     optionsDose = [
       DropdownMenuItem(
         value: 1,
-        child: Text('1 ${widget.medicine.unity}'.captalize()),
+        child: Text('1 $optionsUnitySelected'.captalize()),
       ),
       DropdownMenuItem(
         value: 2,
-        child: Text('2 ${widget.medicine.unity}s'.captalize()),
+        child: Text('2 $optionsUnitySelected'.captalize()),
       ),
       DropdownMenuItem(
         value: 3,
-        child: Text('3 ${widget.medicine.unity}s'.captalize()),
+        child: Text('3 $optionsUnitySelected'.captalize()),
       ),
       DropdownMenuItem(
         value: 4,
-        child: Text('4 ${widget.medicine.unity}s'.captalize()),
+        child: Text('4 $optionsUnitySelected'.captalize()),
       ),
     ];
 
-    return DropdownButtonWidget<int>(
-      backgroundColor: secondaryBlueDark,
-      optionSelected: optionsDoseSelected,
-      itens: optionsDose,
-      onChanged: (value) {
-        setState(() {
-          optionsDoseSelected = value!;
-        });
-      },
+    return Container(
+      height: 46,
+      alignment: Alignment.center,
+      child: DropdownButtonWidget<int>(
+        backgroundColor: secondaryBlueDark,
+        optionSelected: optionsDoseSelected,
+        itens: optionsDose,
+        onChanged: (value) {
+          setState(() {
+            optionsDoseSelected = value!;
+          });
+        },
+      ),
     );
   }
 

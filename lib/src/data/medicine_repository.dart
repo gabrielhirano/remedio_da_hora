@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/data/data_managment_repository.dart';
+import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
+import 'package:remedio_da_hora/src/data/data_source.dart/remote_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
@@ -14,13 +16,25 @@ abstract class IMedicineRepository {
   Future<dynamic> remover(Medicine medicine);
 }
 
+enum Repository { local, remoto }
+
 class MedicineRepository implements IMedicineRepository {
-  late final BaseRepository<Medicine> _baseRepository;
+  late final BaseRepository _baseRepository;
+  late Repository _repositoryState;
   late final DataManagmentRepository<Medicine> _repository;
 
   MedicineRepository(this._baseRepository) {
     _repository = DataManagmentRepository(
         repository: _baseRepository, fromJson: Medicine.fromJson);
+    _selectRepositoryState();
+  }
+
+  _selectRepositoryState() {
+    if (_baseRepository is LocalRepository) {
+      _repositoryState = Repository.local;
+    } else if (_baseRepository is RemoteRepository) {
+      _repositoryState = Repository.remoto;
+    }
   }
 
   @override
@@ -38,7 +52,7 @@ class MedicineRepository implements IMedicineRepository {
   @override
   Future<dynamic> cadastrar(Medicine medicine) {
     return _repository
-        .post(name: medicine.name!, object: medicine)
+        .post(name: medicine.id!.toString(), object: medicine)
         .then((medicamentos) => medicamentos)
         .catchError((error) => error);
   }

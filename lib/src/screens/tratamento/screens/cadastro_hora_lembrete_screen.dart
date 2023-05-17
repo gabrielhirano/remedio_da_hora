@@ -57,10 +57,10 @@ class _CadastroHoraLembreteTratamentoScreenState
 
   _fillHoraController(){
     _horaController = <String, String>{
-      'Uma vez ao dia': '15:00',
-      'Duas vez ao dia': '12:00',
-      'Tres vez ao dia': '08:00',
-      'Quatro vez ao dia': '06:00',
+      '1 vez ao dia': '15:00',
+      '2 vezes ao dia': '12:00',
+      '3 vezes ao dia': '08:00',
+      '4 vezes ao dia': '06:00',
     }[widget.medicine.frequency]!;
   }
 

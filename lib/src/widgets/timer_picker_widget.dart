@@ -4,7 +4,7 @@ import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
-
+import 'package:intl/intl.dart';
 class TimerPickerWidget extends StatefulWidget {
   TimerPickerWidget({super.key, required this.onConfirm});
 
@@ -50,6 +50,7 @@ class _TimerPickerWidgetState extends State<TimerPickerWidget> with ColorsUtils 
           itemHeight: 80,
           isForce2Digits: true,
           onTimeChange: (time) {
+            print('Time = $time');
             setState(() {
               _selectedTime = time;
             });
@@ -63,7 +64,7 @@ class _TimerPickerWidgetState extends State<TimerPickerWidget> with ColorsUtils 
   Widget _buildButtonConfirmar() {
     return TextButtonWidget(
       onPressed: (){
-        String hourTratado = '${_selectedTime.hour}:${_selectedTime.minute}';
+        String hourTratado = '${DateFormat('HH').format(_selectedTime)}:${DateFormat('mm').format(_selectedTime)}';
         widget.onConfirm.call(hourTratado);
         singNavigator.popNavigate();
       },
