@@ -22,7 +22,6 @@ class RemoteRepository implements BaseRepository {
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
       return data;
-      return data.map((json) => json).toList();
     } else {
       throw Exception('Erro ao obter os dados.');
     }
@@ -42,12 +41,13 @@ class RemoteRepository implements BaseRepository {
 
   @override
   Future<void> post(String id, dynamic value) async {
-    Medicine medicine = value as Medicine;
+    // Medicine medicine = value as Medicine;
 
+    DebugUtils.genericLog('cadastro ${value}', Level.wtf);
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
       headers: headers,
-      body: jsonEncode(medicine.toMap()),
+      body: value.toString(),
     );
 
     DebugUtils.genericLog('cadastro ${value}', Level.error);
@@ -63,9 +63,10 @@ class RemoteRepository implements BaseRepository {
     final response = await http.put(
       Uri.parse('$baseUrl/$endpoint/$id'),
       headers: headers,
-      body: jsonEncode(value),
+      body: value.toString(),
     );
-
+        DebugUtils.genericLog('Sucess modificar', Level.wtf);
+    DebugUtils.inspec(response);
     if (response.statusCode != 200) {
       throw Exception('Erro ao atualizar o dado.');
     }

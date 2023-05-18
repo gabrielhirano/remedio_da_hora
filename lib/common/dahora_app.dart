@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:remedio_da_hora/common/consts.dart';
 import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
 import 'package:remedio_da_hora/src/data/data_source.dart/remote_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
@@ -31,7 +32,7 @@ class _DahoraAppState extends State<DahoraApp> {
     return MultiProvider(
       providers: [
         Provider<BaseRepository>(
-          create: (_) => RemoteRepository(),
+          create: (_) => CONSTANT.REPOSITORY,
         ),
         ChangeNotifierProvider(
           create: (context) =>

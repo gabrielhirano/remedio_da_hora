@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +31,8 @@ class LocalRepository implements BaseRepository {
 
   @override
   Future post(String key, object) async {
+    // var obj = jsonDecode(object.toString());
+    DebugUtils.genericLog('Object id ${object.id}', Level.wtf);
     DebugUtils.inspec(object);
     _sharedPreferences.setString(key, object.toString());
   }

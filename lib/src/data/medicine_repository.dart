@@ -28,7 +28,7 @@ class MedicineRepository implements IMedicineRepository {
 
     if (baseRepository is RemoteRepository) {
       _baseRepository = RemoteRepository(
-        baseUrl: 'https://384d-45-183-3-236.sa.ngrok.io',
+        baseUrl: 'https://3ac0-45-183-3-236.sa.ngrok.io',
         endpoint: 'medicines',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ class MedicineRepository implements IMedicineRepository {
   @override
   Future<dynamic> cadastrar(Medicine medicine) {
     return _repository
-        .post(name: medicine.id!.toString(), object: medicine)
+        .post(name: medicine.id.toString(), object: medicine)
         .then((medicamentos) => medicamentos)
         .catchError((error) => error);
   }

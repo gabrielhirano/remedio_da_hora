@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'package:remedio_da_hora/common/consts.dart';
+import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
+
+import 'package:uuid/uuid.dart';
+import 'package:crypto/crypto.dart';
 
 Medicine medicineFromJson(String str) => Medicine.fromJson(json.decode(str));
 
 String medicineToJson(Medicine data) => json.encode(data.toJson());
 
 class Medicine {
-  num? id;
+  String? id;
   num? dose;
   String? frequency;
   String? unity;
@@ -21,7 +26,9 @@ class Medicine {
     this.name,
     this.active,
     this.time,
-  });
+  }) {
+    id = Uuid().v4(); // inicia com um valor para quando ser salvo na memoria salvar um valor
+  }
 
   factory Medicine.fromJson(Map<String, dynamic> json) => Medicine(
         dose: json["dose"]?.toDouble() ?? 0,
@@ -30,12 +37,11 @@ class Medicine {
         name: json["name"] ?? '',
         active: json["remind"] ?? false,
         time: json["time"] ?? '',
-        id: json["id"] ?? 0,
+        id: json["id"].toString(),
       );
 
   Map<String, dynamic> toJson() {
-    return {
-      "id": id ?? 0,
+    var json = {
       "dose": dose,
       "frequency": frequency,
       "unity": unity,
@@ -43,19 +49,15 @@ class Medicine {
       "remind": active ?? true,
       "time": time,
     };
-  }
 
-    Map<String, dynamic> toMap() {
-    return {
-      "dose": dose,
-      "frequency": frequency,
-      "unity": unity,
-      "name": name,
-      "remind": active ?? true,
-      "time": time,
-    };
+    if (CONSTANT.REPOSITORY is LocalRepository) {
+      json["id"] = id;
+    }
+    return json;
   }
 
   @override
-  String toString() => jsonEncode(toJson());
+  String toString() {
+    return jsonEncode(toJson());
+  }
 }

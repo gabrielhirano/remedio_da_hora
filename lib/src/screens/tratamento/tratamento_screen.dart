@@ -76,7 +76,6 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
 
   Widget _buildItens() {
     // controller.buscarMedicamentos();
-    // DebugUtils.log('Build itens', error: '${controller.medicamentos}');
     if (controller.medicamentos.isEmpty) {
       return Expanded(child: Center(child: Text('Sem conteudo'),));
       return const CircularProgressIndicator();
@@ -88,7 +87,7 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         itemCount: controller.medicamentos.length,
         itemBuilder: ((context, index) {
-          singModal.idController = controller.medicamentos.last.id!.toInt();
+          // singModal.idController = controller.medicamentos.last.id!;
           
           return CardLembreteWidget(
             medicine: controller.medicamentos[index],
@@ -170,10 +169,8 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         medicine: medicine,
         onNext: () {
           _closeStackRoutes();
-          medicine.id = singModal.idController = singModal.idController+1;
-          DebugUtils.log('==== cadastro ${medicine.id}');
+
           controller.cadastrarMedicamento(medicine);
-          // finalizar o cadastro do item.
         },
       ),
     );
