@@ -1,17 +1,23 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
+import 'package:remedio_da_hora/src/models/medicine_model.dart';
+import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
 class RemoteRepository implements BaseRepository {
-  final String? baseUrl;
-  final String? endpoint;
+  late final String? baseUrl;
+  late final String? endpoint;
   final Map<String, String>? headers;
 
   RemoteRepository({this.baseUrl, this.endpoint, this.headers});
 
   @override
   Future<List> getAll() async {
+    DebugUtils.genericLog('$baseUrl  \n$endpoint', Level.warning);
     final response = await http.get(Uri.parse('$baseUrl/$endpoint'));
+    
+    DebugUtils.inspec(response);
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -35,12 +41,17 @@ class RemoteRepository implements BaseRepository {
   }
 
   @override
-  Future<void> post(String id, value) async {
+  Future<void> post(String id, dynamic value) async {
+    Medicine medicine = value as Medicine;
+
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
       headers: headers,
-      body: jsonEncode(value),
+      body: jsonEncode(medicine.toMap()),
     );
+
+    DebugUtils.genericLog('cadastro ${value}', Level.error);
+    DebugUtils.inspec(response);
 
     if (response.statusCode != 201) {
       throw Exception('Erro ao criar o dado.');
@@ -63,6 +74,8 @@ class RemoteRepository implements BaseRepository {
   @override
   Future<void> delete(String id) async {
     final response = await http.delete(Uri.parse('$baseUrl/$endpoint/$id'));
+    DebugUtils.genericLog('', Level.wtf);
+    DebugUtils.inspec(response);
 
     if (response.statusCode != 204) {
       throw Exception('Erro ao remover o dado.');

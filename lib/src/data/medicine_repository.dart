@@ -20,21 +20,26 @@ enum Repository { local, remoto }
 
 class MedicineRepository implements IMedicineRepository {
   late final BaseRepository _baseRepository;
-  late Repository _repositoryState;
+
+  final BaseRepository baseRepository;
   late final DataManagmentRepository<Medicine> _repository;
 
-  MedicineRepository(this._baseRepository) {
+  MedicineRepository(this.baseRepository) {
+
+    if (baseRepository is RemoteRepository) {
+      _baseRepository = RemoteRepository(
+        baseUrl: 'https://384d-45-183-3-236.sa.ngrok.io',
+        endpoint: 'medicines',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+    } else {
+      _baseRepository = baseRepository;
+    }
+
     _repository = DataManagmentRepository(
         repository: _baseRepository, fromJson: Medicine.fromJson);
-    _selectRepositoryState();
-  }
-
-  _selectRepositoryState() {
-    if (_baseRepository is LocalRepository) {
-      _repositoryState = Repository.local;
-    } else if (_baseRepository is RemoteRepository) {
-      _repositoryState = Repository.remoto;
-    }
   }
 
   @override

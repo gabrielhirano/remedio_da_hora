@@ -33,6 +33,10 @@ class TratamentoController extends ChangeNotifier {
 
   buscarMedicamentos() async {
     _dataRepository.getAll().then((medicamentos) {
+      DebugUtils.log(
+        'get all = $medicamentos',
+        name: 'tratamento controller',
+      );
       _medicamentos = medicamentos!;
       notifyListeners();
     }).catchError((error, stackTrace) {
@@ -75,9 +79,10 @@ class TratamentoController extends ChangeNotifier {
 
   removerMedicamento(Medicine medicine) async {
     _dataRepository.remover(medicine).then((_) {
-            DebugUtils.log('Sucesso ao remover medicamento',
-          name: 'tratamento controller',
-            );
+      DebugUtils.log(
+        'Sucesso ao remover medicamento',
+        name: 'tratamento controller',
+      );
       buscarMedicamentos();
     }).catchError((error, stackTrace) {
       DebugUtils.log('Erro ao cadastrar medicamento',

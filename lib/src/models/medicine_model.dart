@@ -28,22 +28,34 @@ class Medicine {
         frequency: json["frequency"] ?? '',
         unity: json["unity"] ?? '',
         name: json["name"] ?? '',
-        active: json["remind"] ?? '',
+        active: json["remind"] ?? false,
         time: json["time"] ?? '',
         id: json["id"] ?? 0,
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id ?? 0,
-        "dose": dose,
-        "frequency": frequency,
-        "unity": unity,
-        "name": name,
-        "remind": active ?? true,
-        "time": time,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id ?? 0,
+      "dose": dose,
+      "frequency": frequency,
+      "unity": unity,
+      "name": name,
+      "remind": active ?? true,
+      "time": time,
+    };
+  }
+
+    Map<String, dynamic> toMap() {
+    return {
+      "dose": dose,
+      "frequency": frequency,
+      "unity": unity,
+      "name": name,
+      "remind": active ?? true,
+      "time": time,
+    };
+  }
 
   @override
   String toString() => jsonEncode(toJson());
 }
-

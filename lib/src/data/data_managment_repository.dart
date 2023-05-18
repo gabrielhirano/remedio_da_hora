@@ -21,8 +21,13 @@ class DataManagmentRepository<T> {
   Future<List<T>?> getAll() async {
     return repository
         .getAll()
-        .then((listObjects) => _listObjects(listObjects))
-        .catchError((error) => error);
+        .then((listObjects) {
+          print('sucess get all====');
+          return _listObjects(listObjects);})
+        .catchError((error){
+          print('Error get all====');
+          throw error;
+        });
   }
 
   Future<dynamic> post({required String name, required T object}) async {

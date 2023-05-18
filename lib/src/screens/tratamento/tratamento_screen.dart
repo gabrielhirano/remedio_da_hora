@@ -57,7 +57,7 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            _buildDahorinhaInforma(),
+            // _buildDahorinhaInforma(),
             _buildItens(),
           ],
         ),
@@ -76,8 +76,9 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
 
   Widget _buildItens() {
     // controller.buscarMedicamentos();
-    DebugUtils.log('Build itens', error: '${controller.medicamentos}');
+    // DebugUtils.log('Build itens', error: '${controller.medicamentos}');
     if (controller.medicamentos.isEmpty) {
+      return Expanded(child: Center(child: Text('Sem conteudo'),));
       return const CircularProgressIndicator();
     }
 
