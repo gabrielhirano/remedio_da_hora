@@ -12,7 +12,7 @@ class TratamentoController extends ChangeNotifier {
   late final MedicineRepository _dataRepository;
 
   TratamentoController(this._baseRepository) {
-    _dataRepository = MedicineRepository(_baseRepository);
+    _dataRepository = MedicineRepository(baseRepository: _baseRepository);
   }
 
   late Function? reloadPage;

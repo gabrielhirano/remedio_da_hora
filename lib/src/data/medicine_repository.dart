@@ -10,6 +10,7 @@ import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import '../models/medicine_model.dart';
 
 abstract class IMedicineRepository {
+  RemoteRepository generateRemoteInstance();
   Future<List<Medicine>?> getAll();
   Future<dynamic> cadastrar(Medicine medicine);
   Future<dynamic> modificar(Medicine medicine);
@@ -20,26 +21,28 @@ enum Repository { local, remoto }
 
 class MedicineRepository implements IMedicineRepository {
   late final BaseRepository _baseRepository;
-
-  final BaseRepository baseRepository;
   late final DataManagmentRepository<Medicine> _repository;
 
-  MedicineRepository(this.baseRepository) {
-
-    if (baseRepository is RemoteRepository) {
-      _baseRepository = RemoteRepository(
-        baseUrl: 'https://3ac0-45-183-3-236.sa.ngrok.io',
-        endpoint: 'medicines',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
-    } else {
-      _baseRepository = baseRepository;
-    }
+  MedicineRepository({required BaseRepository baseRepository}) {
+    _baseRepository = baseRepository is RemoteRepository
+        ? generateRemoteInstance()
+        : baseRepository;
 
     _repository = DataManagmentRepository(
-        repository: _baseRepository, fromJson: Medicine.fromJson);
+      repository: _baseRepository,
+      fromJson: Medicine.fromJson,
+    );
+  }
+
+  @override
+  RemoteRepository generateRemoteInstance() {
+    return RemoteRepository(
+      baseUrl: 'https://3ac0-45-183-3-236.sa.ngrok.io',
+      endpoint: 'medicines',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
   }
 
   @override
@@ -78,14 +81,3 @@ class MedicineRepository implements IMedicineRepository {
         .catchError((error) => error);
   }
 }
-
-
-/*
-    List<Medicine>? medicamentos;
-    try {
-      medicamentos = await _repository.getAll();
-      return medicamentos;
-    } catch (error) {
-      rethrow;
-    }
- */
