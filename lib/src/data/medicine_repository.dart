@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/data/data_managment_repository.dart';
-import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
 import 'package:remedio_da_hora/src/data/data_source.dart/remote_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
@@ -16,8 +12,6 @@ abstract class IMedicineRepository {
   Future<dynamic> modificar(Medicine medicine);
   Future<dynamic> remover(Medicine medicine);
 }
-
-enum Repository { local, remoto }
 
 class MedicineRepository implements IMedicineRepository {
   late final BaseRepository _baseRepository;

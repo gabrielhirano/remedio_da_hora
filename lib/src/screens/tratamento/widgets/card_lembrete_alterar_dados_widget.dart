@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
 import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_controller.dart';
-import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_selector_widget.dart';
 import 'package:remedio_da_hora/src/shared/extensions/string_extension.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
@@ -131,7 +130,7 @@ class _CardLembreteAlterarDadosWidgetState
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: double.infinity,
             height: 50,

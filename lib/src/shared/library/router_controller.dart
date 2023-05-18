@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:remedio_da_hora/src/interfaces/lib/router_controller_interface.dart';
-import 'package:remedio_da_hora/src/screens/hoje/hoje_screen.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_screen.dart';
 
 class RouterController implements IRouterController {

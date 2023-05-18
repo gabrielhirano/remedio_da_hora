@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:remedio_da_hora/common/layout/foundation/app_shapes.dart';
 import 'package:remedio_da_hora/common/layout/resource/assets.dart';
 import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_selector_widget.dart';

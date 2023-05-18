@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
-import 'package:remedio_da_hora/src/data/data_source.dart/remote_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 
 class DataManagmentRepository<T> {
@@ -57,7 +55,9 @@ class DataManagmentRepository<T> {
   List<T> _listObjects(listObjects) {
     List<T> list = [];
 
-    for (var object in listObjects) list.add(fromJson(object));
+    for (var object in listObjects) {
+      list.add(fromJson(object));
+    }
 
     return list;
   }

@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/widgets.dart';
-import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/data/medicine_repository.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
 import 'package:remedio_da_hora/src/models/medicine_model.dart';

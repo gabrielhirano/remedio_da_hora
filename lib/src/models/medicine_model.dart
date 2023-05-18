@@ -3,7 +3,6 @@ import 'package:remedio_da_hora/common/consts.dart';
 import 'package:remedio_da_hora/src/data/data_source.dart/local_repository.dart';
 
 import 'package:uuid/uuid.dart';
-import 'package:crypto/crypto.dart';
 
 Medicine medicineFromJson(String str) => Medicine.fromJson(json.decode(str));
 
@@ -27,7 +26,7 @@ class Medicine {
     this.active,
     this.time,
   }) {
-    id = Uuid().v4(); // inicia com um valor para quando ser salvo na memoria salvar um valor
+    id = const Uuid().v4(); // inicia com um valor para quando ser salvo na memoria salvar um valor
   }
 
   factory Medicine.fromJson(Map<String, dynamic> json) => Medicine(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:remedio_da_hora/src/screens/hoje/hoje_screen.dart';
-import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
 class NavigatorController {
   NavigatorController._();
@@ -14,8 +13,8 @@ class NavigatorController {
   BuildContext get currentContext =>
       _navigatorKey.currentState!.overlay!.context;
 
-  late Map<String, Widget Function(BuildContext)> _routes = {
-    '/': (context) => HojeScreen()
+  late final Map<String, Widget Function(BuildContext)> _routes = {
+    '/': (context) => const HojeScreen()
   };
 
   Map<String, Widget Function(BuildContext)> get routes => _routes;

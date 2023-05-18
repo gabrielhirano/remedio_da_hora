@@ -6,7 +6,7 @@ import 'package:remedio_da_hora/src/utils/global_utils.dart';
 import 'package:remedio_da_hora/src/widgets/buttons/text_button_widgwt.dart';
 import 'package:intl/intl.dart';
 class TimerPickerWidget extends StatefulWidget {
-  TimerPickerWidget({super.key, required this.onConfirm});
+  const TimerPickerWidget({super.key, required this.onConfirm});
 
   final Function(String) onConfirm;
 

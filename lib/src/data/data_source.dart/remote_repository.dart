@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/interfaces/base_repository_interface.dart';
-import 'package:remedio_da_hora/src/models/medicine_model.dart';
 import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 
 class RemoteRepository implements BaseRepository {
@@ -43,14 +42,14 @@ class RemoteRepository implements BaseRepository {
   Future<void> post(String id, dynamic value) async {
     // Medicine medicine = value as Medicine;
 
-    DebugUtils.genericLog('cadastro ${value}', Level.wtf);
+    DebugUtils.genericLog('cadastro $value', Level.wtf);
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
       headers: headers,
       body: value.toString(),
     );
 
-    DebugUtils.genericLog('cadastro ${value}', Level.error);
+    DebugUtils.genericLog('cadastro $value', Level.error);
     DebugUtils.inspec(response);
 
     if (response.statusCode != 201) {

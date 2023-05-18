@@ -52,7 +52,7 @@ class BottomSheetWidget extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
       child: Row(
         children: <Widget>[
           title != null

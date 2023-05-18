@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 import 'package:remedio_da_hora/src/screens/hoje/hoje_routes.dart';
-import 'package:remedio_da_hora/src/shared/library/navigator_controller.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
-import 'package:remedio_da_hora/src/utils/debug_utils.dart';
-import 'package:remedio_da_hora/src/utils/global_utils.dart';
 
 class Teste {
   Teste({
@@ -39,7 +34,7 @@ class _HojeScreenState extends State<HojeScreen> with ColorsUtils {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text('In progress'),
     );
     return Scaffold(
@@ -76,10 +71,10 @@ class _HojeScreenState extends State<HojeScreen> with ColorsUtils {
                     //   controller = !controller;
                     // });[[
                   },
-                  child: Text('Click')),
+                  child: const Text('Click')),
             ),
           ),
-          SizedBox(height: 40, width: 40),
+          const SizedBox(height: 40, width: 40),
           Container(
             width: double.infinity,
             height: 200,

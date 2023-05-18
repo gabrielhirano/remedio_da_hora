@@ -7,7 +7,6 @@ import 'package:remedio_da_hora/src/screens/tratamento/screens/cadastro_hora_lem
 import 'package:remedio_da_hora/src/screens/tratamento/tratamento_controller.dart';
 import 'package:remedio_da_hora/src/screens/tratamento/widgets/card_lembrete_alterar_dados_widget.dart';
 import 'package:remedio_da_hora/src/utils/colors_utils.dart';
-import 'package:remedio_da_hora/src/utils/debug_utils.dart';
 import 'package:remedio_da_hora/src/utils/global_utils.dart';
 import 'package:remedio_da_hora/src/widgets/bottomsheets/bottom_sheet_list_option_widget.dart';
 import 'package:remedio_da_hora/src/widgets/bottomsheets/bottom_sheet_widget.dart';
@@ -77,7 +76,7 @@ class _TratamentoScreenState extends State<TratamentoScreen> with ColorsUtils {
   Widget _buildItens() {
     // controller.buscarMedicamentos();
     if (controller.medicamentos.isEmpty) {
-      return Expanded(child: Center(child: Text('Sem conteudo'),));
+      return const Expanded(child: Center(child: Text('Sem conteudo'),));
       return const CircularProgressIndicator();
     }
 

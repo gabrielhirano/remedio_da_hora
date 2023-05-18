@@ -1,7 +1,7 @@
 extension StringExtension on String {
   String captalize({bool allWorlds = false}) {
     String text = this;
-    if (text == null || text.isEmpty) {
+    if (text.isEmpty) {
       return text;
     }
 
@@ -11,7 +11,7 @@ extension StringExtension on String {
 
     List<String> words = text.split(' ');
     words = words.map((word) {
-      if (word.length > 0) {
+      if (word.isNotEmpty) {
         return word[0].toUpperCase() + word.substring(1);
       }
       return '';
